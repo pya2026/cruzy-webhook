@@ -1,7 +1,7 @@
 const express = require('express');
 const { messagingApi, middleware } = require('@line/bot-sdk');
 
-// ── Config ──
+// --- Config ---
 const config = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.LINE_CHANNEL_SECRET,
@@ -13,7 +13,7 @@ const client = new messagingApi.MessagingApiClient({
   channelAccessToken: config.channelAccessToken,
 });
 
-// ── Express app ──
+// --- Express app ---
 const app = express();
 
 // Health check
@@ -31,7 +31,7 @@ app.post('/webhook', middleware(config), (req, res) => {
     });
 });
 
-// ── Handle events ──
+// --- Handle events ---
 async function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     return null;
@@ -45,10 +45,10 @@ async function handleEvent(event) {
 
   if (!matched) return null;
 
-  // Reply with Flex Message containing LIFF link
+  // Flex Message
   const flexMessage = {
     type: 'flex',
-    altText: '\u0E2A\u0E31\u0E48\u0E07\u0E15\u0E31\u0E27\u0E15\u0E34\u0E14 3D \u2014 \u0E01\u0E14\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E1B\u0E34\u0E14',
+    altText: '\u0E2A\u0E31\u0E48\u0E07\u0E15\u0E31\u0E27\u0E15\u0E34\u0E14 3D - CRUZY',
     contents: {
       type: 'bubble',
       size: 'mega',
@@ -62,7 +62,7 @@ async function handleEvent(event) {
             type: 'text',
             text: 'CRUZY',
             color: '#F5C518',
-            size: 'xxl',
+            size: 'xs',
             weight: 'bold',
             align: 'center',
           }],
@@ -86,7 +86,7 @@ async function handleEvent(event) {
           },
           {
             type: 'text',
-            text: '\u0E2D\u0E38\u0E1B\u0E01\u0E23\u0E13\u0E4C\u0E40\u0E2A\u0E23\u0E34\u0E21 \u0E15\u0E31\u0E27\u0E15\u0E34\u0E14 3D\n\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E41\u0E1A\u0E1A \u0E43\u0E2B\u0E0D\u0E48/\u0E40\u0E25\u0E47\u0E01 \u0E2A\u0E31\u0E48\u0E07\u0E44\u0E14\u0E49\u0E2B\u0E25\u0E32\u0E22\u0E41\u0E1A\u0E1A',
+            text: '\u0E2D\u0E38\u0E1B\u0E01\u0E23\u0E13\u0E4C\u0E40\u0E2A\u0E23\u0E34\u0E21\u0E21\u0E34\u0E19\u0E34\u0E41\u0E1A\u0E23\u0E19\u0E14\u0E4C  \u0E15\u0E31\u0E27\u0E15\u0E34\u0E14 3D\n\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E25\u0E32\u0E22/\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E44\u0E0B\u0E2B\u0E4C \u0E2A\u0E31\u0E48\u0E07\u0E44\u0E14\u0E49\u0E2B\u0E25\u0E32\u0E22\u0E41\u0E1A\u0E1A\u0E43\u0E19\u0E04\u0E23\u0E31\u0E49\u0E07\u0E40\u0E14\u0E35\u0E22\u0E27\u0E41\u0E1A\u0E1A\u0E1A',
             size: 'sm',
             color: '#888888',
             margin: 'md',
@@ -120,8 +120,8 @@ async function handleEvent(event) {
   });
 }
 
-// ── Start server ──
+// --- Start server ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(\`CRUZY webhook listening on port \${PORT}\`);
+  console.log('CRUZY webhook listening on port ' + PORT);
 });
